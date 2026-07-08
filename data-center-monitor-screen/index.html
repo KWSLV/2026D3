@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>数据中心运行监控大屏</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="screen">
+    <header class="noc-header">
+      <div class="brand">
+        <span class="logo">SD</span>
+        <div>
+          <h1>SEA DATA LAB · NOC</h1>
+          <p>数据中心运行监控平台 / 服务器实时状态监测</p>
+        </div>
+      </div>
+
+      <div class="time-box">
+        <small id="today">2026-07-08 周三</small>
+        <strong id="clockTime">--:--:--</strong>
+      </div>
+
+      <section class="top-kpis" aria-label="核心指标">
+        <article><span>主机总数</span><strong id="totalHosts">0</strong></article>
+        <article><span>在线主机</span><strong id="onlineHosts">0</strong></article>
+        <article><span>平均健康</span><strong id="avgHealth">0</strong></article>
+        <article><span>待处理告警</span><strong id="alarmPending">0</strong></article>
+      </section>
+    </header>
+
+    <section class="noc-grid">
+      <aside class="left-col">
+        <section class="panel panel-donut">
+          <div class="panel-title">
+            <h2>机房健康分布</h2>
+            <span>DC Room Distribution</span>
+          </div>
+          <canvas id="roomHealthChart"></canvas>
+        </section>
+
+        <section class="panel panel-donut">
+          <div class="panel-title">
+            <h2>硬件型号分布</h2>
+            <span>Server Models</span>
+          </div>
+          <canvas id="modelChart"></canvas>
+        </section>
+
+        <section class="panel">
+          <div class="panel-title">
+            <h2>主机风险排行 TOP10</h2>
+            <span>Risk Ranking</span>
+          </div>
+          <div id="riskList" class="risk-list"></div>
+        </section>
+      </aside>
+
+      <section class="center-col">
+        <section class="panel trend-panel">
+          <div class="panel-title">
+            <h2>核心指标 7 日趋势</h2>
+            <span>CPU / 内存 / 负载小时均值</span>
+          </div>
+          <canvas id="trendChart"></canvas>
+        </section>
+
+        <section class="center-bottom">
+          <section class="panel health-panel">
+            <div class="panel-title">
+              <h2>今日健康仪表盘</h2>
+              <span id="healthStatus">Health Gauge</span>
+            </div>
+            <div class="gauge-wrap">
+              <canvas id="healthGauge"></canvas>
+              <div class="gauge-value">
+                <strong id="gaugeValue">0</strong>
+                <span>综合健康评分</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel heat-panel">
+            <div class="panel-title">
+              <h2>主机健康矩阵</h2>
+              <span>20 Hosts · 4x5</span>
+            </div>
+            <div id="hostMatrix" class="host-matrix"></div>
+          </section>
+        </section>
+      </section>
+
+      <aside class="right-col">
+        <section class="panel">
+          <div class="panel-title">
+            <h2>网络流量 24H</h2>
+            <span>Net I/O Stacked</span>
+          </div>
+          <canvas id="networkChart"></canvas>
+        </section>
+
+        <section class="panel">
+          <div class="panel-title">
+            <h2>磁盘读写 TOP10</h2>
+            <span>Read vs Write</span>
+          </div>
+          <canvas id="diskTopChart"></canvas>
+        </section>
+
+        <section class="panel alarm-panel">
+          <div class="panel-title">
+            <h2>实时告警事件</h2>
+            <span id="criticalCount">严重 0</span>
+          </div>
+          <div id="alarmList" class="alarm-list"></div>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <script src="data/metrics.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
